@@ -15,9 +15,7 @@ class Callbacker
   end
 
   SUPPRESSED_METHODS.each do |method_name|
-puts "creating supressed method #{method_name.inspect}"
     define_method method_name do |*args, &block|
-puts "supressing method #{method_name.inspect}"
       self.method_missing(method_name, *args, &block)
     end
   end
@@ -45,7 +43,7 @@ puts "supressing method #{method_name.inspect}"
 
   def run
     result = self.hook
-puts "RUNNING: #{self.method_chain.inspect}"
+#puts "RUNNING: #{self.method_chain.inspect}"
     self.method_chain.each do |method_name, args, block|
 #puts "current result: #{result.inspect}, calling #{method_name.inspect}"
       result = result.send method_name, *args, &block
