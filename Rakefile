@@ -1,16 +1,15 @@
 require 'rake'
-require 'rake/testtask'
 require 'rake/rdoctask'
+require 'spec'
+require 'spec/rake/spectask'
 
-desc 'Default: run unit tests.'
-task :default => :test
+desc 'Default: run rspec tests.'
+task :default => :rspec
 
 desc 'Test the collection_sequencer plugin.'
-Rake::TestTask.new(:test) do |t|
-  t.libs << 'lib'
-  t.libs << 'test'
-  t.pattern = 'test/**/*_test.rb'
-  t.verbose = true
+Spec::Rake::SpecTask.new(:rspec) do |t|
+  t.spec_opts = ['--options', "\"spec/spec.opts\""]
+  t.spec_files = FileList['spec/collection_sequencer/*.rb']
 end
 
 desc 'Generate documentation for the collection_sequencer plugin.'
